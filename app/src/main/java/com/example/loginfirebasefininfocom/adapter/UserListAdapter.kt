@@ -1,4 +1,5 @@
-import android.annotation.SuppressLint
+package com.example.loginfirebasefininfocom.adapter
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

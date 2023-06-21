@@ -1,6 +1,5 @@
-package com.example.loginfirebasefininfocom
+package com.example.loginfirebasefininfocom.ui
 
-import UserListAdapter
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +12,7 @@ import android.view.Gravity
 import android.view.WindowManager
 import com.bumptech.glide.Glide
 import com.example.loginfirebasefininfocom.Constants.Companion.UserArrayList
+import com.example.loginfirebasefininfocom.R
 import com.example.loginfirebasefininfocom.databinding.ActivityLoginBinding
 import com.example.loginfirebasefininfocom.databinding.LoaderLayoutBinding
 import com.example.loginfirebasefininfocom.model.User
@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity(), TextWatcher {
     private val dialog: Dialog by lazy { Dialog(this) }
     private lateinit var logoutTimer: CountDownTimer
     private val usernameRegexPattern = "^.{10}$".toRegex()
-    private val passwordRegexPattern ="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>])(?=\\S+\$).{8,}\$".toRegex()
+    private val passwordRegexPattern ="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%^&*(),.?\":{}|<>])(?=\\S+\$).{7,}\$".toRegex()
 
 
     val db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -86,6 +86,10 @@ class LoginActivity : AppCompatActivity(), TextWatcher {
 
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     startActivity(intent)
+                    binding.username.setText("")
+                    binding.username.requestFocus()
+                    binding.password.setText("")
+                    binding.password.error = null
 
                 }
 

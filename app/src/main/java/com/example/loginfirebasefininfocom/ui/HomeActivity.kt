@@ -1,19 +1,17 @@
-package com.example.loginfirebasefininfocom
+package com.example.loginfirebasefininfocom.ui
 
-import UserListAdapter
+import com.example.loginfirebasefininfocom.adapter.UserListAdapter
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.content.Intent
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.loginfirebasefininfocom.Constants.Companion.UserArrayList
+import com.example.loginfirebasefininfocom.R
 import com.example.loginfirebasefininfocom.databinding.ActivityHomeBinding
-import com.example.loginfirebasefininfocom.model.User
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -32,11 +30,12 @@ class HomeActivity : AppCompatActivity() {
         val overflowIcon = binding.toolbar.overflowIcon
         // Apply the color to the overflow icon using DrawableCompat
         overflowIcon?.let { DrawableCompat.setTint(it, iconColor) }
-        binding.toolbar.overflowIcon=resources.getDrawable(R.drawable.baseline_sort_by_alpha_24)
+        binding.toolbar.overflowIcon = resources.getDrawable(R.drawable.baseline_sort_by_alpha_24)
         userListadapter = UserListAdapter(UserArrayList)
         binding.recyclerView.adapter = userListadapter
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.option_menu, menu)
 
@@ -65,15 +64,36 @@ class HomeActivity : AppCompatActivity() {
 
                 true
             }
-            R.id.action_logout -> {
-                val intent = Intent(this, LoginActivity::class.java)
-                 startActivity(intent)
-                finish()
 
+            R.id.action_logout -> {
+                showAlertDialog()
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    private fun showAlertDialog() {
+        val builder = AlertDialog.Builder(this@HomeActivity)
+        val icon: Drawable? = getDrawable(R.drawable.baseline_warning_24)
+        builder.setIcon(icon)
+        builder.setTitle("Warning !!!")
+        builder.setMessage("Are you sure ,Do you want to logout ?")
+        builder.setCancelable(false)
+        builder.setPositiveButton("YES") { _, _ ->
+            this@HomeActivity.finish()
+        }
+        builder.setNegativeButton("NO") { dialog, _ ->
+            dialog.cancel()
+        }
+        builder.show()
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        showAlertDialog()
     }
 }
