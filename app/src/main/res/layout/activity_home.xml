@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blue"
         android:elevation="4dp"
-        app:title="Data"
+        app:title="User Info"
         app:titleTextColor="@color/white"
         app:menu="@menu/option_menu"
         android:foregroundTint="@color/white"
